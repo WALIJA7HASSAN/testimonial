@@ -28,7 +28,7 @@ function createTestimonialHTML(testimonial) {
   return `
     <div class="testimonial-text">
       <p>${testimonial.text}</p>
-      <p class="testimonial-name"><strong>${testimonial.name}</strong></p>
+      <p class="testimonial-name">${testimonial.name}</p>
     </div>
   `
 }
