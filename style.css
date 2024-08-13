@@ -74,7 +74,7 @@ body{
     min-width: 100%;
     flex-shrink: 0;
     padding: 0 2.5rem;
-    animation: slideright 0.5s ease;
+    transition: transform 0.5s ease;
     
 }
 
@@ -85,7 +85,7 @@ font-size: 18px;
 font-style: italic;
 
 }
-.testimonila-name,.alumuni-name{
+.testimonila-name{
     font-weight: 600;
     font-size: 18px;
     margin-block: 1rem;
@@ -150,123 +150,18 @@ border-radius: 50%;
   animation: sliderleft 0.5s ease;
 }
 
-/* alumuni */
-.alumuni-container,.trainer-container{
-padding: 1rem;
-    max-width: 1280px;
-    margin-inline: auto;
-}
-.alumuni-title,.trainer-title h3{
-    color: #1d3464;
-    font-size: 28px;
-    text-align: center;
-    padding-block: 2rem 1rem;
-}
 
-.trainer-title span{
-    color: #A1b3ce;
-}
-.alumuni-img img{
-    width: 100%;
-    
 
-}
-.alumuni-occupation{
-    font-size: 18px;
-}
 
-.alumuni-testimnonials{
-    padding: 1rem 0;
-    /* display: grid;
-    align-items: center;
-    justify-content: center; */
-}
 
-.alumuni-text-container{
-     display: grid; /* Adjusted for horizontal sliding */
-    gap: 1rem; /* Adjust the gap between items */
-    transition: transform 0.4s ease;
-    width: 100%;
-    overflow: hidden;
-    animation: slideright 0.5s ease;
-
-}
-.alumni-text {
-    width: 100%;
-    min-width: 100%;
-    flex-shrink: 0;
-    padding: 0 2.5rem;
-    user-select: none;
-}
 .dragged {
     user-select: none;
     cursor: grabbing;
 }
 
-/* trainer */
 
-.trainer-title{
-    text-align: center;
-}
-.trainer-title p{
-    font-size: 18px;
-    margin-bottom: 0.5rem;
-}
-.trainer-div{
-    width: 100%;
-    padding: 2rem;
-    border-radius: 10px;
-   
-}
-.higlight-trainer{
-    background: rgb(213, 221, 236);
-    border: 2px solid rgb(226, 191, 105);
-}
-.trainer-img img{
-    object-fit: cover;
-    width: 100%;
-    max-height: 400px;
-}
-.trainer-name{
-font-size: 18px;
-font-weight: 600;
 
-}
-.trainer-line{
-    width: 100%;
-    height: 2px;
-    background: rgb(226, 191, 105);
-    margin-block: 0.5rem;
-}
-.trainer-text{
-    display: grid;
-    line-height: 1.5;
-}
 
-.trainer-text i,.trainer-text p{
-font-size: 18px ;
-}
-.see-more-btn{
-    color: #435780;
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    font-weight: bold;
-    align-self: center;
-    margin-block: 0.5rem;
-   
-
-}
-.trainer-text-container{
-    margin-block: 3rem;
-    display: grid;
-   width: 300%;
-   grid-template-columns: 1fr 1fr 1fr;
-    
-}
-.trainer-content{
-    overflow: hidden;
-}
 @media screen and (min-width:769px) {
     .testimonial-container{
          min-height: 250px;
@@ -275,20 +170,10 @@ font-size: 18px ;
     .testimonial-text p:first-of-type{
         font-size: 22px;
     }
-    .testimonila-name,.alumuni-name,.alumuni-p,.alumuni-occupation{
+    .testimonila-name{
     font-size: 20px;
 }
-.trainer-title p{
-    font-size: 20px;
-  
-}
-.trainer-title h3{
-    font-size: 44px;
-   
-}
-.trainer-name{
-font-size: 24px;
-}
+
 }
 @media screen and (min-width:1024px) {
     .icon-left,.icon-right{
@@ -297,42 +182,5 @@ font-size: 24px;
     .testimonial-text-container{
         padding-inline: 3rem;
     }
-    .alumuni-title{
-    font-size: 44px;
-}
-.alumuni-text-container{
-    
-    margin-block: 1rem;
-    width: 100%;
-}
-.alumuni-text{
-display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-}
-
-.alumuni-container,.trainer-container{
-    padding-inline: 5rem;
-}
-.alumuni-testimnonials{
-    align-self: center;
-    
-}
-.alumuni-text img {
-        width: 100%; 
-        object-fit: contain;
-    }
-    .trainers{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-    }
-    .see-more-btn{
-       
-    
-  text-align: start;
-  
-
-
-}
+   
 }

@@ -12,23 +12,23 @@ const testimonials = [
     name: '- DAVID',
   },
 ]
-
 const testimonialContainer = document.querySelector(
   '.testimonial-text-container'
 )
 const sliderSpansContainer = document.querySelector('.slider-spans-container')
 const iconLeft = document.querySelector('.icon-left')
-
 const iconRight = document.querySelector('.icon-right')
 let currentIndex = 0
 let autoSlideInterval
+let isDragging = false
+let startX, currentX
 
 // Create testimonial HTML
 function createTestimonialHTML(testimonial) {
   return `
     <div class="testimonial-text">
       <p>${testimonial.text}</p>
-      <p class="testimonila-name">${testimonial.name}</p>
+      <p class="testimonial-name"><strong>${testimonial.name}</strong></p>
     </div>
   `
 }
@@ -39,7 +39,7 @@ function createSliderSpanHTML(index) {
 }
 
 // Render testimonials
-function renderTestimonials() {
+function renderTestimonials(animationClass) {
   testimonialContainer.innerHTML = createTestimonialHTML(
     testimonials[currentIndex]
   )
@@ -48,6 +48,18 @@ function renderTestimonials() {
     .join('')
   updateActiveSpan(currentIndex) // Initialize the first testimonial
   initializeSliderSpanEventListeners() // Reattach event listeners
+
+  // Add animation class with a short delay to ensure DOM update
+  setTimeout(() => {
+    const testimonial = testimonialContainer.querySelector('.testimonial-text')
+    testimonial.classList.add(animationClass)
+  }, 50)
+
+  // Remove animation class after animation completes to reset for next update
+  setTimeout(() => {
+    const testimonial = testimonialContainer.querySelector('.testimonial-text')
+    testimonial.classList.remove(animationClass)
+  }, 1050) // 1000ms for animation + 50ms delay
 }
 
 // Update active slider span
@@ -68,26 +80,16 @@ function resetAnimation() {
 // Show next testimonial
 function showNextTestimonial() {
   resetAnimation()
-  testimonialContainer
-    .querySelector('.testimonial-text')
-    .classList.add('slide-right')
-
   currentIndex = (currentIndex + 1) % testimonials.length
-  renderTestimonials() // Update content and reattach event listeners
+  renderTestimonials('slide-right') // Update content and reattach event listeners
   restartAutoSlide()
 }
 
 // Show previous testimonial
 function showPrevTestimonial() {
-    console.log("prev");
-    
   resetAnimation()
-  testimonialContainer
-    .querySelector('.testimonial-text')
-    .classList.add('slide-left')
-
   currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length
-  renderTestimonials() // Update content and reattach event listeners
+  renderTestimonials('slide-left') // Update content and reattach event listeners
   restartAutoSlide()
 }
 
@@ -110,9 +112,12 @@ function startAutoSlide() {
 // Handle span click
 function handleSpanClick(index) {
   if (index !== currentIndex) {
+    const animationClass = index > currentIndex ? 'slide-right' : 'slide-left'
     currentIndex = index
-    renderTestimonials() // Update content and reattach event listeners
+
+    renderTestimonials(animationClass) // Update content and reattach event listeners
     resetAnimation() // Reset animation class
+
     updateSliderPosition(currentIndex)
     restartAutoSlide()
   }
@@ -121,7 +126,7 @@ function handleSpanClick(index) {
 // Initialize slider span event listeners
 function initializeSliderSpanEventListeners() {
   document.querySelectorAll('.slider-span-container').forEach((container) => {
-    container.addEventListener('click', (e) => {
+    container.addEventListener('click', () => {
       handleSpanClick(parseInt(container.dataset.index))
     })
   })
@@ -135,10 +140,6 @@ function initializeEventListeners() {
 
 // Handle touch and drag events
 function handleTouchDragEvents() {
-  let startX,
-    currentX,
-    isDragging = false
-
   testimonialContainer.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX
     isDragging = true
@@ -184,8 +185,6 @@ function handleTouchDragEvents() {
   function handleDragEnd(endX) {
     isDragging = false
     const difference = endX - startX
-
-    // Updated threshold for smaller drag difference
     const threshold = 20 // Lower threshold for smaller drags
 
     if (difference < -threshold) {
@@ -196,8 +195,8 @@ function handleTouchDragEvents() {
       showPrevTestimonial()
     }
 
-    // Reset transform and apply transition
-    testimonialContainer.style.transition = 'transform 0.2s ease' // Reduced transition time for quick response
+    // Smooth transition
+    testimonialContainer.style.transition = 'transform 0.2s ease'
     testimonialContainer.style.transform = 'translateX(0)'
 
     restartAutoSlide()
@@ -208,18 +207,14 @@ function handleTouchDragEvents() {
   }
 }
 
-
 // Initialize the slider
-renderTestimonials()
+renderTestimonials('slide-right')
 initializeEventListeners()
 startAutoSlide()
-
 handleTouchDragEvents()
 
-document.addEventListener('DOMContentLoaded', () => {
-  initializeEventListeners()
-})
 
 
 
-// Alumni data
+
+
